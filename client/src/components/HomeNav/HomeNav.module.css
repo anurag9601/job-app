@@ -1,0 +1,105 @@
+.homenavContainer{
+    width: 100%;
+    height: 100%;
+    padding: 10px 5%;
+    font-family: "Nunito", serif;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logoContainer{
+    height: 50px;
+    width: 50px;
+    padding: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    background-color: #00f5d4;
+    /* background-color: #00bbf9; */
+    cursor: pointer;
+}
+
+.homenavLeft{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.homenavLogo{
+    height: 35px;
+    width: 35px;
+}
+
+.homenavOptions{
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.homenavOptions li{
+    list-style: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    height: 20px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 7px;
+}
+
+.selectedOption{
+    background-color: #00f5d4;
+}
+
+.homenavRight{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.signupBtn{
+    height: 35px;
+    width: 90px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: "Nunito", serif;
+    border-radius: 7px;
+    background-color: #00f5d4;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.signupBtn:hover{
+    transform: scale(1.05);
+    transition: .3s;
+}
+
+.homenavRight hr{
+    height: 40px;
+    width: 2px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    background-color: #00f5d4;
+}
+
+.homenavRight p{
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.navbarBottomLine{
+    border: none;
+    outline: none;
+    height: 1px;
+    width: 100%;
+    background-color: #00f5d4;
+}
