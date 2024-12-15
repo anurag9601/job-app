@@ -1,0 +1,21 @@
+.lightMode{
+    --background-color: #00f5d4;
+    --font-color: #000;
+    --menu-background-color: #b1efe5;
+    --page-background-color: #f8f9fa;
+    --title-font-color: rgb(76, 211, 175);
+}
+
+.darkMode{
+    --background-color: #4169e1;
+    --font-color: #ffffff;
+    --menu-background-color: #2196f3;
+    --page-background-color: #00171f;
+    --title-font-color: #1976d2;
+}
+
+.appContainer{
+    background-color: var(--page-background-color);
+    min-height: 100dvh;
+    width: 100dvw;
+}

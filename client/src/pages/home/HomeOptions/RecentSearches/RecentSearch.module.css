@@ -5,11 +5,12 @@
     align-items: center;
     justify-content: center;
     gap: 15px;
+    color: var(--font-color);
 }
 
 .noRecentSearchMessage h4{
     font-size: 17px;
-    color: #2ec4b6;
+    color: var(--title-font-color);
 }
 
 .noRecentSearchMessage p{
@@ -25,9 +26,17 @@
     border-radius: 7px;
     border: 1px solid #adb5bd;
     outline: none;
-    background-color: #fff;
+    background-color: transparent;
     font-size: 14px;
     font-weight: 600;
-    color: #2ec4b6;
+    color: var(--background-color);
     cursor: pointer;
+    transition: .3s;
+}
+
+.noRecentSearchMessage button:hover{
+    background-color: var(--background-color);
+    color: var(--font-color);
+    border: none;
+    transition: .3s;
 }

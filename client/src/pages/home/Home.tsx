@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./Home.module.css";
 import { HiOutlineSearch } from "react-icons/hi";
 import { MdLocationPin } from "react-icons/md";
@@ -10,23 +10,32 @@ import RecentSearch from "./HomeOptions/RecentSearches/RecentSearch";
 const Home: React.FC = () => {
   const dispatch = useDispatch();
   const jobSearchRef = useRef<HTMLInputElement | null>(null);
-  const searchIconRef = useRef<HTMLDivElement | null>(null);
+  const [activeJobSearchInputBox, setActiveJobSearchInputBox] =
+    useState<boolean>(false);
 
   const selectedOption = useSelector(
     (state: any) => state.home.homeSelectedOption
   );
 
-  function startSearchInputBoxBtn() {
+  async function startSearchInputBoxBtn() {
     jobSearchRef.current?.focus();
-    searchIconRef.current?.classList.replace("searchIcon", "animation");
-    alert("I am working")
+    setActiveJobSearchInputBox(true);
+    setTimeout(() => {
+      setActiveJobSearchInputBox(false);
+    }, 2000);
   }
 
   return (
     <div className={styles.homeContainer}>
       <form className={styles.searchArea}>
         <div className={styles.jobtitle}>
-          <div className={styles.searchIcon} ref={searchIconRef}>
+          <div
+            className={
+              activeJobSearchInputBox === true
+                ? styles.animation
+                : styles.searchIcon
+            }
+          >
             <HiOutlineSearch className={styles.jobtitleSearchIcon} />
           </div>
           <input type="text" placeholder="Job title" ref={jobSearchRef} />
@@ -41,7 +50,7 @@ const Home: React.FC = () => {
         </button>
       </form>
       <p className={styles.employeMessage}>
-        <span>There is no need of resume</span> - Just apply for jobs by your
+        <span>There is no need of resume</span> - Just apply for jobs as per your
         interest
       </p>
       <p className={styles.hiresMessage}>
