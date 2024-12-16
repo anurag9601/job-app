@@ -1,9 +1,9 @@
 .lightMode{
-    --background-color: #00f5d4;
+    --background-color: #4ce0d2;
     --font-color: #000;
     --menu-background-color: #b1efe5;
     --page-background-color: #f8f9fa;
-    --title-font-color: rgb(76, 211, 175);
+    --title-font-color: #006d77;
 }
 
 .darkMode{
@@ -16,6 +16,9 @@
 
 .appContainer{
     background-color: var(--page-background-color);
+    color: var(--font-color);
     min-height: 100dvh;
     width: 100dvw;
+    display: flex;
+    flex-direction: column;
 }

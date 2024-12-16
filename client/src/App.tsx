@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSelected } from "./redux/slice/homeNavOptions.slice";
 import styles from "./App.module.css";
 import { dispatchType, stateType } from "./redux/store";
+import Signup from "./pages/auth/Signup/Signup";
+import Signin from "./pages/auth/Signin/Signin";
 
 function App() {
   const dispatch: dispatchType = useDispatch();
@@ -38,6 +40,8 @@ function App() {
     >
       <Routes>
         <Route path="/" element={<HomeNav />}>
+          <Route path="/sign-up" element={<Signup />} />
+          <Route path="/sign-in" element={<Signin />} />
           <Route path="/" element={<Home />} />
           <Route path="/customer-reviews" element={<CustomerReview />} />
           <Route path="/earning" element={<Earnings />} />

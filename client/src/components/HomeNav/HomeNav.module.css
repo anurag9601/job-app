@@ -62,6 +62,21 @@
     gap: 10px;
 }
 
+.createUserOptions{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.createUserOptions hr{
+    height: 20px;
+    width: 2px;
+    border: none;
+    outline: none;
+    background-color: var(--font-color);
+    border-radius: 10px;
+}
+
 .signupBtn{
     height: 35px;
     width: 90px;
@@ -82,7 +97,7 @@
     transition: .3s;
 }
 
-.homenavRight hr{
+.homenavRightDivideer{
     height: 40px;
     width: 2px;
     border: none;

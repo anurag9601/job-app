@@ -26,17 +26,17 @@
     border-radius: 7px;
     border: 1px solid #adb5bd;
     outline: none;
-    background-color: var(--page-background-color);
+    background-color: transparent;
     font-size: 14px;
-    font-weight: 600;
-    color: var(--background-color);
+    font-weight: 700;
+    color: var(--title-font-color);
     cursor: pointer;
     transition: .3s;
 }
 
 .noRecentJobMessage button:hover{
     background-color: var(--background-color);
-    color: #fff;
+    color: var(--font-color);
     border: none;
     transition: .3s;
 }

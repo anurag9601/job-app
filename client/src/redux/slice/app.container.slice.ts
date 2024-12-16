@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface initialStateTypes {
-    appMode: "dark" | "light" | "system"
+    appMode: "dark" | "light" | "system" | String
 }
 
 const initialState: initialStateTypes = {
-    appMode: "system"
+    appMode: localStorage.getItem("appMode") || "system",
 }
 
 const appContainerSlice = createSlice({
@@ -14,6 +14,7 @@ const appContainerSlice = createSlice({
     reducers: {
         setAppMode: (state, action: PayloadAction<"dark" | "light" | "system">) => {
             state.appMode = action.payload
+            localStorage.setItem("appMode", action.payload);
         }
     }
 });

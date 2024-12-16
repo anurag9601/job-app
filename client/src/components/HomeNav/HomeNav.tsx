@@ -3,7 +3,7 @@ import styles from "./HomeNav.module.css";
 import logo from "../../assets/images/logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelected } from "../../redux/slice/homeNavOptions.slice";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { CiLight } from "react-icons/ci";
 import { CiDark } from "react-icons/ci";
 import { stateType } from "../../redux/store";
@@ -37,6 +37,10 @@ const HomeNav: React.FC = () => {
     };
   }, []);
 
+  const location = useLocation();
+
+  const pathName = location.pathname;
+
   return (
     <>
       <div className={styles.homenavContainer}>
@@ -49,81 +53,96 @@ const HomeNav: React.FC = () => {
               onClick={() => navigate("/")}
             />
           </div>
-          <ul className={styles.homenavOptions}>
-            <li
-              className={selected === "home" ? styles.selectedOption : ""}
-              onClick={() => {
-                dispatch(setSelected("home"));
-                navigate("/");
-              }}
-            >
-              Home
-            </li>
-            <li
-              className={selected === "customer" ? styles.selectedOption : ""}
-              onClick={() => {
-                dispatch(setSelected("customer"));
-                navigate("/customer-reviews");
-              }}
-            >
-              Customer reviews
-            </li>
-            <li
-              className={selected === "earning" ? styles.selectedOption : ""}
-              onClick={() => {
-                dispatch(setSelected("earning"));
-                navigate("/earning");
-              }}
-            >
-              Your earning
-            </li>
-          </ul>
+          {!pathName.includes("/sign-up") && !pathName.includes("/sign-in") && (
+            <ul className={styles.homenavOptions}>
+              <li
+                className={selected === "home" ? styles.selectedOption : ""}
+                onClick={() => {
+                  dispatch(setSelected("home"));
+                  navigate("/");
+                }}
+              >
+                Home
+              </li>
+              <li
+                className={selected === "customer" ? styles.selectedOption : ""}
+                onClick={() => {
+                  dispatch(setSelected("customer"));
+                  navigate("/customer-reviews");
+                }}
+              >
+                Customer reviews
+              </li>
+              <li
+                className={selected === "earning" ? styles.selectedOption : ""}
+                onClick={() => {
+                  dispatch(setSelected("earning"));
+                  navigate("/earning");
+                }}
+              >
+                Your earning
+              </li>
+            </ul>
+          )}
         </div>
-        <div className={styles.homenavRight}>
-          <button className={styles.signupBtn}>Sign up</button>
-          <hr />
-          <p>Employers / Post Job</p>
-          <div
-            className={styles.lightDarkModeContainer}
-            ref={dropdownRef}
-            tabIndex={0}
-            onClick={toggleDropdown}
-          >
-            {appMode === "light" ? (
-              <CiLight className={styles.modeIcon} />
-            ) : (
-              <CiDark className={styles.modeIcon} />
-            )}
-            {isDropdownVisible && (
-              <ul>
-                <li
-                  onClick={() => {
-                    dispatch(setAppMode("system"));
-                    setIsDropdownVisible(false);
-                  }}
-                >
-                  System
-                </li>
-                <li
-                  onClick={() => {
-                    dispatch(setAppMode("light"));
-                    setIsDropdownVisible(false);
-                  }}
-                >
-                  Light
-                </li>
-                <li
-                  onClick={() => {
-                    dispatch(setAppMode("dark"));
-                    setIsDropdownVisible(false);
-                  }}
-                >
-                  Dark
-                </li>
-              </ul>
-            )}
+        {!pathName.includes("/sign-up") && !pathName.includes("/sign-in") && (
+          <div className={styles.homenavRight}>
+            <div className={styles.createUserOptions}>
+              <p onClick={() => navigate("/sign-in")}>Sign in</p>
+              <hr />
+              <button
+                className={styles.signupBtn}
+                onClick={() => {
+                  navigate("sign-up");
+                }}
+              >
+                Sign up
+              </button>
+            </div>
+            <hr className={styles.homenavRightDivideer} />
+            <p>Employers / Post Job</p>
+            <div
+              className={styles.lightDarkModeContainer}
+              ref={dropdownRef}
+              tabIndex={0}
+              onClick={toggleDropdown}
+            >
+              {appMode === "light" ? (
+                <CiLight className={styles.modeIcon} />
+              ) : (
+                <CiDark className={styles.modeIcon} />
+              )}
+              {isDropdownVisible && (
+                <ul>
+                  <li
+                    onClick={() => {
+                      dispatch(setAppMode("system"));
+                      setIsDropdownVisible(false);
+                    }}
+                  >
+                    System
+                  </li>
+                  <li
+                    onClick={() => {
+                      dispatch(setAppMode("light"));
+                      setIsDropdownVisible(false);
+                    }}
+                  >
+                    Light
+                  </li>
+                  <li
+                    onClick={() => {
+                      dispatch(setAppMode("dark"));
+                      setIsDropdownVisible(false);
+                    }}
+                  >
+                    Dark
+                  </li>
+                </ul>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <hr className={styles.navbarBottomLine} />
       <Outlet />

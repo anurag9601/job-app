@@ -28,8 +28,8 @@
     outline: none;
     background-color: transparent;
     font-size: 14px;
-    font-weight: 600;
-    color: var(--background-color);
+    font-weight: 700;
+    color: var(--title-font-color);
     cursor: pointer;
     transition: .3s;
 }
