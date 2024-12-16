@@ -100,7 +100,7 @@ const HomeNav: React.FC = () => {
               </button>
             </div>
             <hr className={styles.homenavRightDivideer} />
-            <p>Employers / Post Job</p>
+            <p onClick={() => navigate("/post-job")}>Employers / Post Job</p>
             <div
               className={styles.lightDarkModeContainer}
               ref={dropdownRef}

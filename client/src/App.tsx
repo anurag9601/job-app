@@ -10,6 +10,7 @@ import styles from "./App.module.css";
 import { dispatchType, stateType } from "./redux/store";
 import Signup from "./pages/auth/Signup/Signup";
 import Signin from "./pages/auth/Signin/Signin";
+import Postjob from "./pages/Postjob/Postjob";
 
 function App() {
   const dispatch: dispatchType = useDispatch();
@@ -46,6 +47,7 @@ function App() {
           <Route path="/customer-reviews" element={<CustomerReview />} />
           <Route path="/earning" element={<Earnings />} />
         </Route>
+        <Route path="/post-job" element={<Postjob />}></Route>
       </Routes>
     </div>
   );
