@@ -11,6 +11,8 @@ import { dispatchType, stateType } from "./redux/store";
 import Signup from "./pages/auth/Signup/Signup";
 import Signin from "./pages/auth/Signin/Signin";
 import Postjob from "./pages/Postjob/Postjob";
+import { setUser } from "./redux/slice/user.slice";
+import ForgotPassword from "./pages/auth/Signin/ForgotPassword/ForgotPassword";
 
 function App() {
   const dispatch: dispatchType = useDispatch();
@@ -18,6 +20,8 @@ function App() {
   const location = useLocation();
 
   const appMode = useSelector((state: stateType) => state.appContainer.appMode);
+
+  const user = useSelector((state: stateType) => state.userData.user);
 
   function setNavbar() {
     if (location.pathname == "/customer-reviews") {
@@ -29,8 +33,22 @@ function App() {
     }
   }
 
+  async function getAuthenticatedUserData() {
+    const request = await fetch("/api/user/authentication");
+
+    const response = request.json();
+    response.then((e) => {
+      if (e.success === true) {
+        dispatch(setUser(e.data));
+      } else {
+        console.log(e);
+      }
+    });
+  }
+
   React.useEffect(() => {
     setNavbar();
+    getAuthenticatedUserData();
   }, []);
 
   return (
@@ -41,8 +59,9 @@ function App() {
     >
       <Routes>
         <Route path="/" element={<HomeNav />}>
-          <Route path="/sign-up" element={<Signup />} />
-          <Route path="/sign-in" element={<Signin />} />
+          <Route path="/sign-up" element={user ? <Home /> : <Signup />} />
+          <Route path="/sign-in" element={user ? <Home /> : <Signin />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/" element={<Home />} />
           <Route path="/customer-reviews" element={<CustomerReview />} />
           <Route path="/earning" element={<Earnings />} />

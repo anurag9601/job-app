@@ -9,8 +9,8 @@ export interface payloadDataTypes {
 
 export function createUserToken(payload: payloadDataTypes) {
     const secret = process.env.JWT_SECRET as string;
+
     const token = jwt.sign(payload, secret, {
-        algorithm: "RS256",
         expiresIn: "15d",
     });
     return token;

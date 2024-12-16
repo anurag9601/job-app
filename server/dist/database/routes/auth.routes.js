@@ -10,4 +10,6 @@ const userAuthRoute = express_1.default.Router();
 userAuthRoute.post("/sign-up", auth_controllers_1.handleUserSignup);
 userAuthRoute.post("/sign-in", auth_controllers_1.handleUserSignin);
 userAuthRoute.get("/authentication", protect_route_1.default, auth_controllers_1.handleUserAuthentication);
+userAuthRoute.get("/sign-out", protect_route_1.default, auth_controllers_1.handleUserSignout);
+userAuthRoute.post("/forgot-password", auth_controllers_1.handleUserForgetPassword);
 exports.default = userAuthRoute;

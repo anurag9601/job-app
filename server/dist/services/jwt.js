@@ -9,7 +9,6 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 function createUserToken(payload) {
     const secret = process.env.JWT_SECRET;
     const token = jsonwebtoken_1.default.sign(payload, secret, {
-        algorithm: "RS256",
         expiresIn: "15d",
     });
     return token;

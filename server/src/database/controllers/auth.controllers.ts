@@ -32,7 +32,7 @@ export async function handleUserSignup(req: Request, res: Response) {
         const payload = {
             _id: newUser._id,
             fullName: newUser.fullName,
-            email: newUser.fullName,
+            email: newUser.email,
         }
 
         const token = await createUserToken(payload);
@@ -104,6 +104,14 @@ export async function handleUserAuthentication(req: Request, res: Response) {
     }
 }
 
+export async function handleUserSignout(req: Request, res: Response) {
+    try {
+        res.clearCookie("jwt").json({ success: true, message: "User successfully signout." });
+    } catch (err) {
+        res.status(500).json({ error: "Internal server error." });
+    }
+}
+
 export async function handleUserForgetPassword(req: Request, res: Response) {
     try {
         const { email } = req.body;
@@ -152,4 +160,3 @@ export async function handleUserForgetPassword(req: Request, res: Response) {
         res.status(500).json({ error: "Internal server error." });
     }
 }
-

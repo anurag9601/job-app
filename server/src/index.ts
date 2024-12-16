@@ -1,15 +1,20 @@
+import dotenv from "dotenv";
+dotenv.config()
+
 import express from "express";
 import mongooseConnect from "./database/db";
-import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+
+import userAuthRoute from "./database/routes/auth.routes";
 
 const app = express();
 
-dotenv.config()
 
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+app.use("/api/user", userAuthRoute);
 
 const port = process.env.DEPLOYMENT_URL || 9000;
 

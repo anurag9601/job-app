@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.handleUserSignup = handleUserSignup;
 exports.handleUserSignin = handleUserSignin;
 exports.handleUserAuthentication = handleUserAuthentication;
+exports.handleUserSignout = handleUserSignout;
 exports.handleUserForgetPassword = handleUserForgetPassword;
 const auth_model_1 = require("../models/auth.model");
 const bcrypt_1 = __importDefault(require("bcrypt"));
@@ -43,7 +44,7 @@ function handleUserSignup(req, res) {
             const payload = {
                 _id: newUser._id,
                 fullName: newUser.fullName,
-                email: newUser.fullName,
+                email: newUser.email,
             };
             const token = yield (0, jwt_1.createUserToken)(payload);
             res.cookie('jwt', token, {
@@ -101,6 +102,16 @@ function handleUserAuthentication(req, res) {
                 return;
             }
             res.status(200).json({ success: true, data: user });
+        }
+        catch (err) {
+            res.status(500).json({ error: "Internal server error." });
+        }
+    });
+}
+function handleUserSignout(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            res.clearCookie("jwt").json({ success: true, message: "User successfully signout." });
         }
         catch (err) {
             res.status(500).json({ error: "Internal server error." });
