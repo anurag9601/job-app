@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { dispatchType } from "../../../redux/store";
 import { setUser } from "../../../redux/slice/user.slice";
+import Loading from "../../../components/Loading/Loading";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -17,6 +18,8 @@ const Signup = () => {
   const emailRef = React.useRef<HTMLInputElement | null>(null);
   const passwordRef = React.useRef<HTMLInputElement | null>(null);
   const confirmPasswordRef = React.useRef<HTMLInputElement | null>(null);
+
+  const [loading, setLoading] = React.useState<boolean>(false);
 
   const login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
@@ -40,7 +43,7 @@ const Signup = () => {
     e.preventDefault();
 
     if (passwordRef.current!.value.length < 6) {
-      alert("Length of password must be more then 6.");
+      alert("Length of password must be 6 or more than 6.");
       return;
     }
 
@@ -48,6 +51,8 @@ const Signup = () => {
       alert("Passwords are not matched.");
       return;
     }
+
+    setLoading(true);
 
     const request = await fetch("/api/user/sign-up", {
       method: "POST",
@@ -64,8 +69,10 @@ const Signup = () => {
     response.then((e) => {
       if (e.success === true) {
         dispatch(setUser(e.data));
+        setLoading(false);
         navigate("/");
       } else {
+        setLoading(false);
         console.log(e);
       }
     });
@@ -103,7 +110,9 @@ const Signup = () => {
             ref={confirmPasswordRef}
             required
           />
-          <button type="submit">Sign up</button>
+          <button type="submit" disabled={loading}>
+            {loading === true ? <Loading /> : "Sign up"}
+          </button>
         </form>
         <span onClick={() => navigate("/sign-in")}>
           Already have an account?

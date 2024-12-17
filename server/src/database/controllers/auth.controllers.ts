@@ -160,3 +160,47 @@ export async function handleUserForgetPassword(req: Request, res: Response) {
         res.status(500).json({ error: "Internal server error." });
     }
 }
+
+export async function handleCheckValidUserLink(req: Request, res: Response) {
+    try {
+        const { userId } = req.params;
+
+        const user = await userAuthModel.findOne({ _id: userId, });
+
+        if (!user) {
+            res.status(400).json({ error: "Invalid link." });
+            return;
+        }
+
+        res.status(200).json({ success: true });
+    } catch (err) {
+        res.status(500).json({ error: "Internal server error." });
+    }
+}
+
+export async function handleSetNewPassword(req: Request, res: Response) {
+    try {
+        const { userId } = req.params;
+
+        const { password } = req.body;
+
+        if (!password) {
+            res.status(400).json({ error: "Fill all the fields." });
+            return;
+        }
+
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        const updatedUser = await userAuthModel.findOneAndUpdate({ _id: userId }, { $set: { password: hashedPassword } });
+
+        if (!updatedUser) {
+            res.status(400).json({ error: "Something went wrong." });
+            return;
+        }
+
+        res.status(200).json({ success: true, message: "Password updated successfully." });
+    } catch (err) {
+        res.status(500).json({ error: "Internal server error." });
+    }
+}

@@ -17,6 +17,8 @@ exports.handleUserSignin = handleUserSignin;
 exports.handleUserAuthentication = handleUserAuthentication;
 exports.handleUserSignout = handleUserSignout;
 exports.handleUserForgetPassword = handleUserForgetPassword;
+exports.handleCheckValidUserLink = handleCheckValidUserLink;
+exports.handleSetNewPassword = handleSetNewPassword;
 const auth_model_1 = require("../models/auth.model");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jwt_1 = require("../../services/jwt");
@@ -158,6 +160,45 @@ function handleUserForgetPassword(req, res) {
                     res.status(200).json({ success: true, message: "Mail send on respective email successfully." });
                 }
             });
+        }
+        catch (err) {
+            res.status(500).json({ error: "Internal server error." });
+        }
+    });
+}
+function handleCheckValidUserLink(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const { userId } = req.params;
+            const user = yield auth_model_1.userAuthModel.findOne({ _id: userId, });
+            if (!user) {
+                res.status(400).json({ error: "Invalid link." });
+                return;
+            }
+            res.status(200).json({ success: true });
+        }
+        catch (err) {
+            res.status(500).json({ error: "Internal server error." });
+        }
+    });
+}
+function handleSetNewPassword(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const { userId } = req.params;
+            const { password } = req.body;
+            if (!password) {
+                res.status(400).json({ error: "Fill all the fields." });
+                return;
+            }
+            const salt = yield bcrypt_1.default.genSalt(10);
+            const hashedPassword = yield bcrypt_1.default.hash(password, salt);
+            const updatedUser = yield auth_model_1.userAuthModel.findOneAndUpdate({ _id: userId }, { $set: { password: hashedPassword } });
+            if (!updatedUser) {
+                res.status(400).json({ error: "Something went wrong." });
+                return;
+            }
+            res.status(200).json({ success: true, message: "Password updated successfully." });
         }
         catch (err) {
             res.status(500).json({ error: "Internal server error." });

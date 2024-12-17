@@ -12,4 +12,6 @@ userAuthRoute.post("/sign-in", auth_controllers_1.handleUserSignin);
 userAuthRoute.get("/authentication", protect_route_1.default, auth_controllers_1.handleUserAuthentication);
 userAuthRoute.get("/sign-out", protect_route_1.default, auth_controllers_1.handleUserSignout);
 userAuthRoute.post("/forgot-password", auth_controllers_1.handleUserForgetPassword);
+userAuthRoute.get("/valid-link/:userId", auth_controllers_1.handleCheckValidUserLink);
+userAuthRoute.post("/new-password/:userId", auth_controllers_1.handleSetNewPassword);
 exports.default = userAuthRoute;

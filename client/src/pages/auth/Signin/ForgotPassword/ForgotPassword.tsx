@@ -2,6 +2,7 @@ import React, { FormEvent } from "react";
 import styles from "./ForgotPassword.module.css";
 import { FaCircleCheck } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import Loading from "../../../../components/Loading/Loading";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -10,8 +11,12 @@ const ForgotPassword = () => {
 
   const [emailSend, setEmailSend] = React.useState<boolean>(false);
 
+  const [loading, setLoading] = React.useState<boolean>(false);
+
   const handleSendUserNewPasswordMail = async (e: FormEvent) => {
     e.preventDefault();
+
+    setLoading(true);
 
     const request = await fetch("/api/user/forgot-password", {
       method: "POST",
@@ -26,6 +31,7 @@ const ForgotPassword = () => {
     response.then((e) => {
       if (e.success === true) {
         setEmailSend(true);
+        setLoading(false);
       } else {
         console.log(e);
       }
@@ -52,7 +58,9 @@ const ForgotPassword = () => {
               ref={emailRef}
               required
             />
-            <button type="submit">Confirm</button>
+            <button type="submit" disabled={loading}>
+              {loading === true ? <Loading /> : "Confirm"}
+            </button>
           </form>
         </div>
       ) : (

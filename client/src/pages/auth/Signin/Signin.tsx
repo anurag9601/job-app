@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { dispatchType } from "../../../redux/store";
 import { setUser } from "../../../redux/slice/user.slice";
+import Loading from "../../../components/Loading/Loading";
 
 const Signin = () => {
   const navigate = useNavigate();
@@ -15,6 +16,8 @@ const Signin = () => {
 
   const emailRef = React.useRef<HTMLInputElement | null>(null);
   const passwordRef = React.useRef<HTMLInputElement | null>(null);
+
+  const [loading, setLoading] = React.useState<boolean>(false);
 
   const login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
@@ -37,6 +40,8 @@ const Signin = () => {
   async function handleUserManualSignin(e: FormEvent) {
     e.preventDefault();
 
+    setLoading(true);
+
     const request = await fetch("/api/user/sign-in", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -50,9 +55,11 @@ const Signin = () => {
 
     response.then((e) => {
       if (e.success) {
+        setLoading(false);
         dispatch(setUser(e.data));
         navigate("/");
       } else {
+        setLoading(false);
         console.log(e);
       }
     });
@@ -78,8 +85,15 @@ const Signin = () => {
             ref={passwordRef}
             required
           />
-          <span className={styles.forgotPasswordBtn} onClick={() => navigate("/forgot-password")}>Forgot password?</span>
-          <button type="submit">Sign in</button>
+          <span
+            className={styles.forgotPasswordBtn}
+            onClick={() => navigate("/forgot-password")}
+          >
+            Forgot password?
+          </span>
+          <button type="submit" disabled={loading}>
+            {loading === true ? <Loading /> : "Sign in"}
+          </button>
         </form>
         <span onClick={() => navigate("/sign-up")}>Don't have an account?</span>
       </div>

@@ -13,6 +13,8 @@ import Signin from "./pages/auth/Signin/Signin";
 import Postjob from "./pages/Postjob/Postjob";
 import { setUser } from "./redux/slice/user.slice";
 import ForgotPassword from "./pages/auth/Signin/ForgotPassword/ForgotPassword";
+import NewPassword from "./pages/auth/Signin/NewPassword/NewPassword";
+import NotFound from "./pages/NotFound/NotFound";
 
 function App() {
   const dispatch: dispatchType = useDispatch();
@@ -58,10 +60,12 @@ function App() {
       }`}
     >
       <Routes>
+        <Route path="*" element={<NotFound />} />
         <Route path="/" element={<HomeNav />}>
           <Route path="/sign-up" element={user ? <Home /> : <Signup />} />
           <Route path="/sign-in" element={user ? <Home /> : <Signin />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/new-password/:userId" element={<NewPassword />} />
           <Route path="/" element={<Home />} />
           <Route path="/customer-reviews" element={<CustomerReview />} />
           <Route path="/earning" element={<Earnings />} />
