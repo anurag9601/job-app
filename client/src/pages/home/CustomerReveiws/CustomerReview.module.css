@@ -1,0 +1,96 @@
+.customerReviewContainer{
+    width: 100%;
+    height: 100%;
+    padding: 10px 5%;
+    font-family: "Nunito", serif;
+    color: var(--font-color)
+}
+
+.customerReviewContainer h1{
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: var(--title-font-color)
+}
+
+.searchMessage{
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 3px;
+}
+
+.searchAreaContainer{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
+}
+
+.searchInput{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: 1px solid var(--background-color);
+    border-radius: 8px;
+    padding: 0 10px;
+    height: 40px;
+}
+
+.searchInput input{
+    width: 100%;
+    background-color: transparent;
+    height: 40px;
+    border: none;
+    outline: none;
+    color: var(--font-color);
+    font-size: 16px;
+    font-weight: 700;
+    padding: 0 5px;
+}
+
+.searchInput:focus-within{
+    border: 2px solid var(--background-color);
+}
+
+.searchIcon{
+    font-size: 20px;
+}
+
+.searchAreaContainer button{
+    width: 180px;
+    height: 40px;
+    font-weight: 700;
+    font-size: 15px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    background-color: var(--background-color);
+    color: var(--font-color);
+    cursor: pointer;
+}
+
+.noResult{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.noResult p{
+    max-width: 350px;
+    font-size: 15px;
+    font-weight: 800;
+    /* color: var(--font-color); */
+    color: var(--title-font-color);
+}
+
+.noResult img{
+    width: 50px;
+}
+
+.customersListContainer{
+    margin-top: 40px;
+}
